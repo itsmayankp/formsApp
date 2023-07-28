@@ -6,7 +6,7 @@ function App() {
 
 
   const [formData, setFormData] = useState(
-    {firstName:"", lastName:"", email:"", country:"india", streetaddress :"", city:"", state:"", pincode:"", comments:false, candidates :false, offers:false}
+    {firstName:"", lastName:"", email:"", country:"india", streetaddress :"", city:"", state:"", pincode:"", comments:false, candidates :false, offers:false, pushNotifications:""}
   )
 
   function changeHandeler(event){
@@ -18,12 +18,17 @@ function App() {
       }
     })
   }
+  function submitHandeler(event){
+    event.preventDefault();
+    console.log("Finally printing the value of form data");
+    console.log(formData);
+  }
 
 
 
   return (
-    <div className="flex flex-col items-center mt-2">
-      <form>
+    <div className="w-full flex flex-col items-center mt-2">
+      <form onSubmit={submitHandeler}>
         <label htmlFor="firstName">First Name</label>
         <br></br>
         <input
@@ -73,6 +78,7 @@ function App() {
         id="country"
         name="country"
         value={formData.country}
+        onChange={changeHandeler}
         className="outline"
         >
           <option value="india">India</option>
@@ -89,7 +95,7 @@ function App() {
         type="text"
         placeholder="134 Main St"
         id="streetaddress"
-        name="lastName"
+        name="streetaddress"
         value={formData.streetaddress}
         onChange={changeHandeler}
         className="outline"
@@ -117,7 +123,7 @@ function App() {
         type="text"
         placeholder="134 Main St"
         id="state"
-        name="Uttar Pradesh"
+        name="state"
         value={formData.state}
         onChange={changeHandeler}
         className="outline"
@@ -132,16 +138,19 @@ function App() {
         placeholder="211019"
         id="pincode"
         name="pincode"
-        value={formData.state}
+        value={formData.pincode}
         onChange={changeHandeler}
         className="outline"
         />
 
 
+      <br></br>
+      <br></br>
+
         <fieldset>
           <legend>By Email</legend>
 
-        <div className="flex baseline">
+        <div className="flex">
           <input
           id="comments"
           onChange={changeHandeler}
@@ -154,7 +163,84 @@ function App() {
             <p>Get notified when someones posts a comment on a posting.</p>
           </div>
         </div>
+
+        <div className="flex">
+          <input
+          id="candidates"
+          onChange={changeHandeler}
+          name="candidates"
+          type="checkbox"
+          checked={formData.candidates}
+          />
+          <div>
+            <label htmlFor="candidates">Candidates</label>
+            <p>Get notified when a candidate applies for a job.</p>
+          </div>
+        </div>
+
+        <div className="flex">
+          <input
+          id="offers"
+          onChange={changeHandeler}
+          name="offers"
+          type="checkbox"
+          checked={formData.offers}
+          />
+          <div>
+            <label htmlFor="offers">Offers</label>
+            <p>Get notified when a candidate accepts or rejects an offer.</p>
+          </div>
+        </div>
         </fieldset>
+
+      <br></br>
+      <br></br>
+
+        <fieldset>
+          <legend>Push Notifications</legend>
+          <p>These are delivered via SMS to your mobile phone.</p>
+          
+          <div>
+            <input
+            type="radio"
+            id="everything"
+            name="pushNotifications"
+            value="Everything"
+            onChange={changeHandeler}
+            />
+            <label htmlFor="everything">Everything</label>
+          </div>
+
+          <div>
+            <input
+            type="radio"
+            id="sameasemail"
+            name="pushNotifications"
+            value="Same as email"
+            onChange={changeHandeler}
+            />
+            <label htmlFor="sameasemail">Same as email</label>
+          </div>
+
+          <div>
+            <input
+            type="radio"
+            id="pushNothing"
+            name="pushNotifications"
+            value="No push notifications"
+            onChange={changeHandeler}
+            />
+            <label htmlFor="pushNothing">No push notifications</label>
+          </div>
+          
+        </fieldset>
+
+      <br></br>
+      <br></br>
+
+        <button
+        className="bg-blue-500 text-white fontbold rounded-sm py-2 px-4"
+        >Save</button>
       </form>
     </div>
   );
